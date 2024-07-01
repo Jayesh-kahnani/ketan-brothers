@@ -1,6 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("submitting");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setStatus("submitted");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        console.log(formData);
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+  };
+
   return (
     <section id="contact" className="contact section-bg">
       <div className="container">
@@ -8,7 +49,6 @@ export default function Contact() {
           <h2>Contact</h2>
           <p>Connecting Brilliance: Reach Out to Us Today</p>
         </div>
-
         <div className="row">
           <div className="col-lg-4">
             <div
@@ -19,9 +59,7 @@ export default function Contact() {
                 <i className="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
                 <p>
-                  <span>
-                    <strong>Ketan Brothers Diamondz Exports</strong>
-                  </span>
+                  <strong>Ketan Brothers Diamondz Exports</strong>
                 </p>
                 <p>
                   BW-5010A, 5th Floor, Tower B,
@@ -31,13 +69,11 @@ export default function Contact() {
                   Bandra Kurla Complex, Bandra (E), Mumbai - 400051, India.
                 </p>
               </div>
-
               <div className="email">
                 <i className="bi bi-envelope"></i>
                 <h4>Email:</h4>
                 <p>info@ketanbrothers.com</p>
               </div>
-
               <div className="phone">
                 <i className="bi bi-phone"></i>
                 <h4>Tel:</h4>
@@ -45,12 +81,9 @@ export default function Contact() {
               </div>
             </div>
           </div>
-
           <div className="col-lg-8 mt-5 mt-lg-0">
             <form
-              action="forms/contact.php"
-              method="post"
-              role="form"
+              onSubmit={handleSubmit}
               className="php-email-form"
               data-aos="fade-left"
             >
@@ -62,6 +95,8 @@ export default function Contact() {
                     className="form-control"
                     id="name"
                     placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -72,6 +107,8 @@ export default function Contact() {
                     name="email"
                     id="email"
                     placeholder="Your Email"
+                    value={formData.email}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -83,6 +120,8 @@ export default function Contact() {
                   name="subject"
                   id="subject"
                   placeholder="Subject"
+                  value={formData.subject}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -92,18 +131,23 @@ export default function Contact() {
                   name="message"
                   rows="5"
                   placeholder="Message"
+                  value={formData.message}
+                  onChange={handleChange}
                   required
                 ></textarea>
               </div>
               <div className="my-3">
-                <div className="loading">Loading</div>
-                <div className="error-message"></div>
-                <div className="sent-message">
-                  Your message has been sent. Thank you!
-                </div>
+                {status === "submitting" && (
+                  <div className="loading">Submitting...</div>
+                )}
+                {status === "error" && (
+                  <div className="error-message">Failed to send message</div>
+                )}
               </div>
               <div className="text-center">
-                <button type="submit">Send Message</button>
+                <button type="submit" disabled={status === "submitting"}>
+                  {status === "submitting" ? "sending" : "Send Message"}
+                </button>
               </div>
             </form>
           </div>
@@ -136,7 +180,7 @@ export default function Contact() {
           <img src="assets/img/rjc.jpg" alt="RJC" style={{ width: "145px" }} />
           <img
             src="assets/img/itraceit.jpg"
-            alt="iTraceit"
+            alt="RJC"
             style={{ width: "100px" }}
           />
         </div>

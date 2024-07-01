@@ -39,7 +39,6 @@ export default function RootLayout({ children }) {
         <Script src="assets/vendor/glightbox/js/glightbox.min.js"></Script>
         <Script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></Script>
         <Script src="assets/vendor/swiper/swiper-bundle.min.js"></Script>
-        <Script src="assets/vendor/php-email-form/validate.js"></Script>
 
         {/* <!-- Template Main JS File --> */}
         <Script src="assets/js/main.js"></Script>
