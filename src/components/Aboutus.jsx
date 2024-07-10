@@ -39,6 +39,5 @@ export default function AboutUs() {
 
         </div>
     </section>)
-    {/* <!--End About Us Section-- > */}
 
 }
