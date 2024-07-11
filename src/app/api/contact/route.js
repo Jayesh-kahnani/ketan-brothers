@@ -16,14 +16,12 @@ export async function POST(req) {
       timestamp: new Date(),
     });
 
-    // Respond to the client immediately after Firestore write
     const response = NextResponse.json({
       id: docRef.id,
       message: "Message sent successfully!",
     });
 
-    // Send the email in the background
-    transporter
+   await transporter
       .sendMail({
         from: process.env.MAIL_USER,
         to: process.env.MAIL_USER,
