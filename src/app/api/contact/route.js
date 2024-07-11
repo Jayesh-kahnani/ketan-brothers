@@ -21,7 +21,15 @@ export async function POST(req) {
       subject,
       message,
       timestamp: new Date(),
+    }).catch((error) => {
+      console.error("Error adding document to Firestore:", error);
+      throw error; // Rethrow the error to be caught by the outer try-catch block
     });
+
+    if (!docRef) {
+      throw new Error("Document reference is undefined or null");
+    }
+
     console.log("Document added to Firestore with ID:", docRef.id);
 
     // Create the response to send back immediately
