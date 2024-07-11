@@ -5,38 +5,22 @@ import { collection, addDoc } from "firebase/firestore";
 import { transporter } from "@/utils/mailSender.utils";
 
 export async function POST(req) {
-  try {
-    const { name, email, subject, message } = await req.json();
-    console.log("Received contact form data:", {
-      name,
-      email,
-      subject,
-      message,
-    });
+  const { name, email, subject, message } = await req.json();
 
-    // Add document to Firestore
+  try {
     const docRef = await addDoc(collection(db, "contacts"), {
       name,
       email,
       subject,
       message,
       timestamp: new Date(),
-    }).catch((error) => {
-      console.error("Error adding document to Firestore:", error);
-      throw error; // Rethrow the error to be caught by the outer try-catch block
     });
 
-    if (!docRef) {
-      throw new Error("Document reference is undefined or null");
-    }
-
-    console.log("Document added to Firestore with ID:", docRef.id);
-
-    // Create the response to send back immediately
+    // Respond to the client immediately after Firestore write
     const response = NextResponse.json({
-      message: "Message received and being processed!",
+      id: docRef.id,
+      message: "Message sent successfully!",
     });
-    console.log(process.env.API_KEY)
 
     // Send the email in the background
     transporter
@@ -46,28 +30,25 @@ export async function POST(req) {
         subject: "New contact form submission",
         text: `You have a new contact form submission:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
         html: `
-        <div style="margin: 10px; padding: 20px; border-radius: 5px; border: 1px solid #ddd; font-family: Arial, sans-serif;">
+        <div style="font-family: Arial, sans-serif; line-height: 1.5;">
           <h2 style="color: #333;">You have a new contact form submission:</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Subject:</strong> ${subject}</p>
-          <p><strong>Message:</strong></p>
-          <div>
+          <p style="margin: 0;"><strong>Name:</strong> ${name}</p>
+          <p style="margin: 0;"><strong>Email:</strong> ${email}</p>
+          <p style="margin: 0;"><strong>Subject:</strong> ${subject}</p>
+          <p style="margin: 0;"><strong>Message:</strong></p>
+          <div style="background-color: #f9f9f9; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
             ${message}
           </div>
         </div>
       `,
       })
-      .catch((error) => {
-        console.error("Error sending email: ", error);
-        // Optional: Log error or notify admin
-      });
+      .catch((err) => console.error("Error sending email: ", err));
 
     return response;
-  } catch (error) {
-    console.error("Error in contact form submission:", error);
+  } catch (e) {
+    console.error("Error adding document: ", e);
     return NextResponse.json(
-      { error: "Failed to process message" },
+      { error: "Failed to send message" },
       { status: 500 }
     );
   }
