@@ -36,6 +36,7 @@ export async function POST(req) {
     const response = NextResponse.json({
       message: "Message received and being processed!",
     });
+    console.log(process.env.API_KEY)
 
     // Send the email in the background
     transporter
