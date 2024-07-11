@@ -27,16 +27,12 @@ export async function POST(req) {
        to: process.env.MAIL_USER,
        subject: "New contact form submission",
        text: `You have a new contact form submission:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
-       html: `
-
-
-        
-        <div style="margin: 10px; padding: 20px; border-radius: 5px; border: 1px solid rgb(221, 221, 221); font-family: Arial, sans-serif;">
+       html: `        <div style="margin: 10px; padding: 20px; border-radius: 5px; border: 1px solid rgb(221, 221, 221); font-family: Arial, sans-serif;">
           <h2 style="color: #333;">You have a new contact form submission:</h2>
-          <p style=";"><strong>Name:</strong> ${name}</p>
-          <p style=";"><strong>Email:</strong> ${email}</p>
-          <p style=";"><strong>Subject:</strong> ${subject}</p>
-          <p style=";"><strong>Message:</strong></p>
+          <p style=""><strong>Name:</strong> ${name}</p>
+          <p style=""><strong>Email:</strong> ${email}</p>
+          <p style=""><strong>Subject:</strong> ${subject}</p>
+          <p style=""><strong>Message:</strong></p>
           <div style="">
             ${message}
           </div>
