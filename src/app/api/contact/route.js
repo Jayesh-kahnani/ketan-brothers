@@ -1,3 +1,4 @@
+// src/app/api/contact/route.js
 import { NextResponse } from "next/server";
 import { db } from "../../../../firebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
@@ -15,12 +16,20 @@ export async function POST(req) {
       timestamp: new Date(),
     });
 
-    await transporter.sendMail({
-      from: process.env.MAIL_USER,
-      to: process.env.MAIL_USER,
-      subject: "New contact form submission",
-      text: `You have a new contact form submission:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
-      html: `
+    // Respond to the client immediately after Firestore write
+    const response = NextResponse.json({
+      id: docRef.id,
+      message: "Message sent successfully!",
+    });
+
+    // Send the email in the background
+    transporter
+      .sendMail({
+        from: process.env.MAIL_USER,
+        to: process.env.MAIL_USER,
+        subject: "New contact form submission",
+        text: `You have a new contact form submission:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
+        html: `
         <div style="margin: 10px; padding: 20px; border-radius: 5px; border: 1px solid #ddd; font-family: Arial, sans-serif; ;">
           <h2 style="color: #333; ">You have a new contact form submission:</h2>
           <p style=""><strong>Name:</strong> ${name}</p>
@@ -32,12 +41,10 @@ export async function POST(req) {
           </div>
         </div>
       `,
-    });
+      })
+      .catch((err) => console.error("Error sending email: ", err));
 
-    return NextResponse.json({
-      id: docRef.id,
-      message: "Message sent successfully!",
-    });
+    return response;
   } catch (e) {
     console.error("Error adding document: ", e);
     return NextResponse.json(
