@@ -22,25 +22,28 @@ export async function POST(req) {
     });
 
    await transporter
-      .sendMail({
-        from: process.env.MAIL_USER,
-        to: process.env.MAIL_USER,
-        subject: "New contact form submission",
-        text: `You have a new contact form submission:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
-        html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+     .sendMail({
+       from: process.env.MAIL_USER,
+       to: process.env.MAIL_USER,
+       subject: "New contact form submission",
+       text: `You have a new contact form submission:\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`,
+       html: `
+
+
+        
+        <div style="margin: 10px; padding: 20px; border-radius: 5px; border: 1px solid rgb(221, 221, 221); font-family: Arial, sans-serif;">
           <h2 style="color: #333;">You have a new contact form submission:</h2>
-          <p style="margin: 0;"><strong>Name:</strong> ${name}</p>
-          <p style="margin: 0;"><strong>Email:</strong> ${email}</p>
-          <p style="margin: 0;"><strong>Subject:</strong> ${subject}</p>
-          <p style="margin: 0;"><strong>Message:</strong></p>
-          <div style="background-color: #f9f9f9; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+          <p style=";"><strong>Name:</strong> ${name}</p>
+          <p style=";"><strong>Email:</strong> ${email}</p>
+          <p style=";"><strong>Subject:</strong> ${subject}</p>
+          <p style=";"><strong>Message:</strong></p>
+          <div style="">
             ${message}
           </div>
         </div>
       `,
-      })
-      .catch((err) => console.error("Error sending email: ", err));
+     })
+     .catch((err) => console.error("Error sending email: ", err));
 
     return response;
   } catch (e) {
