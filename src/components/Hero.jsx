@@ -12,7 +12,7 @@ export default function Hero() {
               alt="Ketan Brothers Logo"
            />
         </Link>
-        <h1 data-aos="zoom-in">Welcome To Ketan Brothers</h1>
+        <h1 data-aos="zoom-in">Welcome To { } Ketan Brothers</h1>
         <h2 data-aos="fade-up">
           Diamonds Beyond Imagination: Crafting Excellence Since 1969
         </h2>

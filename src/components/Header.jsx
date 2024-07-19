@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+
 // components/Header.js
 import Link from "next/link";
 const Header = () => {
