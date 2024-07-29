@@ -36,7 +36,6 @@ export default function RootLayout({ children }) {
         <Script src="assets/vendor/aos/aos.js"></Script>
         <Script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></Script>
         <Script src="assets/vendor/glightbox/js/glightbox.min.js"></Script>
-        <Script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></Script>
 
         {/* <!-- Template Main JS File --> */}
         <Script src="assets/js/main.js"></Script>
