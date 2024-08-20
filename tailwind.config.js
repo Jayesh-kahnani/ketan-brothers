@@ -12,7 +12,12 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        beige: "#e0d6c8", // Slightly darker beige
+        brown: "#c2a98f", // Slightly darker brown
+        darkbrown: "#6f4e37", // Darker brown
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

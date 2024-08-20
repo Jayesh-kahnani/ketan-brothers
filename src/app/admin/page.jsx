@@ -1,5 +1,11 @@
 "use client";
 // src/app/admin/page.jsx
+import "@/../public/assets/vendor/bootstrap/css/bootstrap.min.css";
+import "@/../public/assets/vendor/aos/aos.css";
+import "@/../public/assets/vendor/bootstrap-icons/bootstrap-icons.css";
+import "@/../public/assets/vendor/boxicons/css/boxicons.min.css";
+import "../../app/globals.css";
+
 import { useState, useEffect } from "react";
 import { auth } from "../../../firebaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -87,7 +93,6 @@ export default function Page() {
     console.log(`Mark inquiry as read with ID: ${id}`);
   };
 
-
   const handleRefresh = async () => {
     if (selectedSection === "inquiries") {
       fetchContacts();
@@ -107,6 +112,15 @@ export default function Page() {
       <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
         <div>
+          <button className="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600">
+            <Link
+              href="/"
+              style={{ color: "inherit", textDecoration: "inherit" }}
+            >
+              Home
+            </Link>
+          </button>
+
           <button
             onClick={handleRefresh}
             className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-600"
@@ -159,6 +173,7 @@ export default function Page() {
             <div>
               <h1 className="text-3xl font-bold mb-4">Inquiries</h1>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {" "}
                 {contacts.map((contact) => (
                   <div
                     key={contact.id}

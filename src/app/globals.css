@@ -3,6 +3,12 @@
 @import "tailwindcss/components"; 
 @import "tailwindcss/utilities";
 
+
+
+
+
+
+
 /* Modal styles */
 .modal-overlay {
   position: fixed;

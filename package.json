@@ -9,15 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-react": "^8.0.0",
+    "@tailwindcss/typography": "^0.5.14",
+    "@tiptap/extension-color": "^2.5.8",
+    "@tiptap/extension-list-item": "^2.5.8",
+    "@tiptap/extension-placeholder": "^2.5.8",
+    "@tiptap/extension-text-style": "^2.5.8",
+    "@tiptap/extension-underline": "^2.5.8",
+    "@tiptap/pm": "^2.5.8",
+    "@tiptap/react": "^2.5.8",
+    "@tiptap/starter-kit": "^2.5.8",
     "axios": "^1.7.2",
-    "ckeditor5": "^42.0.2",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.2",
+    "html-react-parser": "^5.1.12",
     "next": "14.2.4",
     "nodemailer": "^6.9.14",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sass": "^1.77.8"
   },
   "devDependencies": {
     "eslint": "^8",

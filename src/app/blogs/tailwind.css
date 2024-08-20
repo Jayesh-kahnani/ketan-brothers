@@ -1,0 +1,24 @@
+@import "tailwindcss/base"; 
+@import "tailwindcss/components"; 
+@import "tailwindcss/utilities";
+
+.prose h1 {
+  font-size: 2rem; /* Size for h1 in the content, adjust as needed */
+  line-height: 2.5rem;
+}
+
+.prose h2 {
+  font-size: 1.5rem; /* Size for h2 in the content, adjust as needed */
+  line-height: 2rem;
+}
+
+.prose h3 {
+  font-size: 1.25rem; /* Size for h3 in the content, adjust as needed */
+  line-height: 1.75rem;
+}
+
+/* Ensure that no h1 within the content is larger than the main title */
+.prose h1 {
+  font-size: 1.5rem; /* Make sure h1 in content is smaller than the main title */
+}
+

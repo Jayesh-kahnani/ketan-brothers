@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { auth } from "../../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import "../../public/assets/css/LoginModal.css";
 
 const LoginModal = ({ onClose }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [status, setStatus] = useState("")
+  const [status, setStatus] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -14,11 +16,11 @@ const LoginModal = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setStatus("Logging in")
+    setStatus("Logging in");
 
     if (formData.password.length < 6) {
       setError("Password should be at least 6 characters.");
-      setStatus("")
+      setStatus("");
       return;
     }
 
@@ -39,15 +41,12 @@ const LoginModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-opacity-75">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-center mb-6">Admin Login</h2>
+    <div className="modal-container">
+      <div className="modal-content">
+        <h2 className="modal-heading">Admin Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
+          <div className="form-group">
+            <label className="label" htmlFor="email">
               Email
             </label>
             <input
@@ -56,16 +55,13 @@ const LoginModal = ({ onClose }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="input"
               placeholder="Email"
               required
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
+          <div className="form-group">
+            <label className="label" htmlFor="password">
               Password
             </label>
             <input
@@ -74,18 +70,18 @@ const LoginModal = ({ onClose }) => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="input"
               placeholder="Password"
               required
             />
           </div>
-          {error && <div className="mb-4 text-red-500">{error}</div>}
+          {error && <div className="error-message">{error}</div>}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            className="submit-button"
             disabled={status === "Logging in"}
           >
-            {status == "logging in" ? "logging in" : "login"}
+            {status === "Logging in" ? "Logging in" : "Login"}
           </button>
         </form>
       </div>
